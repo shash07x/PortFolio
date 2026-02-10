@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shashvath P - Portfolio</title>
+    <script>
+      // Remove any Kimi watermark elements
+      (function() {
+        const removeWatermark = function() {
+          const watermarks = document.querySelectorAll('[class*="kimi"], [id*="kimi"], .kimi-watermark, #kimi-watermark');
+          watermarks.forEach(el => el.remove());
+          
+          // Also check for any fixed positioned elements in bottom right
+          const allElements = document.querySelectorAll('*');
+          allElements.forEach(el => {
+            const style = window.getComputedStyle(el);
+            if (style.position === 'fixed' && 
+                style.bottom === '0px' && 
+                style.right === '0px' &&
+                el.textContent.toLowerCase().includes('kimi')) {
+              el.remove();
+            }
+          });
+        };
+        
+        // Run on load and periodically
+        window.addEventListener('load', removeWatermark);
+        setInterval(removeWatermark, 1000);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
